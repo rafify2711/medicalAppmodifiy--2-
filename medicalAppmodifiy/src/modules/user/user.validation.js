@@ -1,0 +1,31 @@
+import joi from "joi"
+import {generalFields } from '../../middleware/validation.middleware.js'
+// import { Types } from "mongoose"
+
+export const updateProfile = {
+    body: joi.object({
+        username: generalFields.username,
+        phone: generalFields.phone,
+        DOB: joi.date().iso().less("now"),// Ensures correct format & past date
+        Adress:joi.string().min(5).max(200),
+        medicationHistory:joi.string().min(5).max(200)
+    })
+};
+
+export const updatePassword= {
+    body:joi.object().keys({
+    oldPassword:generalFields.password.required(),
+    password:generalFields.password.not(joi.ref("oldPassword")).required(),
+    confirmationPassword:generalFields.confirmationPassword.valid(joi.ref("password")).required()
+
+}).required()}
+
+
+
+
+export const shareProfile= {
+    body:joi.object().keys({
+    userId:generalFields.id.required(),
+  
+
+}).required()}
