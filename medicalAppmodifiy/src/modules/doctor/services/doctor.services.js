@@ -15,11 +15,6 @@ export const getDoctorProfile = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
-export const createDoctor = async (doctorData) => {
-  const doctor = new Doctor(doctorData);
-  await doctor.save();
-  return doctor;
-};
 
 
 /////////////////////
@@ -59,31 +54,25 @@ export const deleteDoctor = async (doctorId) => {
 };
  
 
-export const updateSchedule = async (req, res) => {
-  try {
-      const { doctorId } = req.params;
-      const { schedule } = req.body;
-
-      if (!mongoose.Types.ObjectId.isValid(doctorId)) {
-          return res.status(400).json({ message: "Invalid doctor ID" });
-      }
-
-      if (!schedule || !Array.isArray(schedule)) {
-          return res.status(400).json({ message: "Schedule must be an array" });
-      }
-
-      const doctor = await Doctor.findById(doctorId);
-      if (!doctor) {
-          return res.status(404).json({ message: "Doctor not found" });
-      }
-
-      doctor.schedule = schedule;
-      await doctor.save();
-
-      return res.status(200).json({ message: "Schedule updated successfully", doctor });
-  } catch (error) {
-      return res.status(500).json({ message: "Internal server error", error: error.message });
+//update doctor's schedule
+export const updateSchedule = async (doctorId, { schedule }) => {
+  if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+    throw new Error("Invalid doctor ID");
   }
+
+  if (!schedule || !Array.isArray(schedule)) {
+    throw new Error("Schedule must be an array");
+  }
+
+  const doctor = await Doctor.findById(doctorId);
+  if (!doctor) {
+    throw new Error("Doctor not found");
+  }
+
+  doctor.schedule = schedule;
+  await doctor.save();
+
+  return doctor;
 };
 
 //get doctor's reservations 

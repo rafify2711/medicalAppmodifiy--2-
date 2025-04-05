@@ -4,18 +4,7 @@ import { authentication, authorization } from "../../middleware/auth.middleware.
 
 const router = express.Router();
 
-/**
- * @route   POST /api/doctor
- * @desc    Create a new doctor
- */
-router.post("/", async (req, res) => {
-  try {
-    const newDoctor = await doctorService.createDoctor(req.body);
-    res.status(201).json(newDoctor);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+
 
 /**
  * @route   GET /api/doctor/:id
