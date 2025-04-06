@@ -68,7 +68,6 @@ const userSchema = new Schema({
       },
       medicationHistory: {
         type: String,
-        type: Date,
         default: null
     
       },

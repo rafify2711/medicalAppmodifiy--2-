@@ -73,18 +73,25 @@ export const shareProfile= async (req, res, next)=>{
     }
 }
 
+// update user Profile 
+
+
 export const updateProfile = async (req, res, next) => {
     try {
         let updateData = { ...req.body };
 
-        // Encrypt phone number if it's being updated
+        // Encrypt phone if it's being updated
         if (updateData.phone) {
-            updateData.phone = CryptoJS.AES.encrypt(updateData.phone, process.env.ENCRYPTION_SIGNATURE).toString();
+            updateData.phone = CryptoJS.AES.encrypt(
+                updateData.phone,
+                process.env.ENCRYPTION_SIGNATURE
+            ).toString();
         }
 
+        // Update user
         const user = await userModel.findByIdAndUpdate(
-            req.user._id, 
-            updateData, 
+            req.user._id,
+            updateData,
             { new: true, runValidators: true }
         );
 
@@ -92,15 +99,22 @@ export const updateProfile = async (req, res, next) => {
             return res.status(404).json({ message: "User not found" });
         }
 
+        // Decrypt phone before sending it back
+        if (user.phone) {
+            user.phone = CryptoJS.AES.decrypt(user.phone, process.env.ENCRYPTION_SIGNATURE).toString(CryptoJS.enc.Utf8);
+        }
+
         return res.status(200).json({ message: "Profile updated successfully", user });
+
     } catch (error) {
         return res.status(500).json({ 
             message: "Server error", 
-            error: error.message, 
-            stack: error.stack 
+            error: error.message,
+            stack: error.stack
         });
     }
-}
+};
+
 
 
 export const updatePassword = async (req, res, next) => {
