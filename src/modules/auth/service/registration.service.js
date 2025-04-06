@@ -1,6 +1,5 @@
 import userModel from "../../../DB/model/User.model.js";
 import Doctor from "../../../DB/model/doctor.model.js"
-
 import Users from "../../../DB/model/User.model.js"
 import CryptoJS from "crypto-js";
 import * as bcrypt from 'bcrypt'

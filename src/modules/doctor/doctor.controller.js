@@ -93,11 +93,17 @@ router.get("/:doctorId/available-slots/:date", async (req, res) => {
 router.get("/:doctorId/reservations", async (req, res) => {
   try {
     const reservations = await doctorService.getDoctorReservations(req.params.doctorId);
-    res.json(reservations);
+
+    // Even if it's empty, return a 200 with an empty array
+    res.status(200).json({
+      message: "Reservations fetched successfully",
+      reservations
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
+
 // Get all doctors
 router.get("/", async (req, res) => {
   try {

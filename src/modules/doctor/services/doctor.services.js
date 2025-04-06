@@ -78,26 +78,18 @@ export const updateSchedule = async (doctorId, { schedule }) => {
 //get doctor's reservations 
 
 
-export const getDoctorReservations = async (req, res) => {
-  try {
-      const { doctorId } = req.params;
-
-      // Validate doctorId
-      if (!mongoose.Types.ObjectId.isValid(doctorId)) {
-          return res.status(400).json({ message: "Invalid doctor ID format" });
-      }
-
-      // Fetch all reservations for the given doctor
-      const reservations = await Reservation.find({ doctor: doctorId })
-          .populate("doctor", "name specialization") // Populate doctor details
-          .populate("user", "username email"); // Populate user details
-
-      if (!reservations.length) {
-          return res.status(404).json({ message: "No reservations found for this doctor" });
-      }
-
-      return res.status(200).json({ message: "Reservations fetched successfully", reservations });
-  } catch (error) {
-      return res.status(500).json({ message: "Server error", error: error.message });
+export const getDoctorReservations = async (doctorId) => {
+  if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+    throw new Error("Invalid doctor ID format");
   }
+
+  const reservations = await Reservation.find({ doctor: doctorId })
+    .populate("doctor", "name specialization")
+    .populate("user", "username email");
+
+  if (!reservations.length) {
+    throw new Error("No reservations found for this doctor");
+  }
+
+  return reservations;
 };

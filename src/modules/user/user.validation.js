@@ -8,7 +8,8 @@ export const updateProfile = {
         phone: generalFields.phone,
         DOB: joi.date().iso().less("now"),// Ensures correct format & past date
         Adress:joi.string().min(5).max(200),
-        medicationHistory:joi.string().min(5).max(200)
+        medicationHistory:joi.string().min(5).max(200),
+        gender: joi.string().valid("male", "female") .optional(),
     })
 };
 

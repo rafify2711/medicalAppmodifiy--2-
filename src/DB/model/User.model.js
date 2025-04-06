@@ -23,6 +23,7 @@ const userSchema = new Schema({
     },
     phone: {
         type: String,
+        default: null
         
     },
  
@@ -31,10 +32,7 @@ const userSchema = new Schema({
         enum: ['male', 'female'],
         default: 'male'
     },
-    confirmEmail: {
-        type: Boolean,
-        default: false
-    },
+  
     role: {
         type: String,
         enum: ['User','Admin','Doctor'],
@@ -42,9 +40,15 @@ const userSchema = new Schema({
     },
     DOB: {
         type: Date,
+        default: null
+
         // required: true,
       },
-      changePasswordTime:Date,
+
+      changePasswordTime:{ 
+        type: Date,
+        default: null
+      },
 
       isDeleted:{type:Boolean, default:false},
 
@@ -52,13 +56,20 @@ const userSchema = new Schema({
         type: String, // URL for the profile photo
         default: "",
       },
-      reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' }],
+
+      reservations: [{ type: mongoose.Schema.Types.ObjectId,
+        default: null,
+         ref: 'Reservation' }],
+
       Adress: {
-        type: String
+        type: String,
+        default: null
     
       },
       medicationHistory: {
-        type: String
+        type: String,
+        type: Date,
+        default: null
     
       },
  

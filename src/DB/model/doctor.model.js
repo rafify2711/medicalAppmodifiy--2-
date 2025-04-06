@@ -58,7 +58,8 @@ password: {
 },
 phone: {
   type: String,
-  
+  default: null
+
 },
 
 gender: {
@@ -67,7 +68,10 @@ gender: {
   default: 'male'
 },
 
-changePasswordTime:Date,
+changePasswordTime:{ 
+  type: Date,
+  default: null
+},
 
 isDeleted:{type:Boolean, default:false},
 
@@ -82,7 +86,9 @@ profilePhoto: {
     }
   ],
   
-  reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reservation" }]
+  reservations: [{ type: mongoose.Schema.Types.ObjectId,
+    default: null,
+    ref: "Reservation" }]
 
 });
 
