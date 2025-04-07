@@ -55,21 +55,24 @@ router.delete("/:id", async (req, res) => {
 });
 
 /**
- * @route   PUT /api/doctor/:doctorId/schedule
+ * @route   PUT /api/doctor/:doctorId/schedule/add
  * @desc    Update doctor's schedule
  */
+// Route to add new schedule entries
 router.put(
-  "/:doctorId/schedule",
+  "/:doctorId/schedule/add",
   authentication(),
   authorization(["Doctor"]),
-  async (req, res) => {
-    try {
-      const updatedSchedule = await doctorService.updateSchedule(req.params.doctorId, req.body);
-      res.json({ message: "Schedule updated successfully", updatedSchedule });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  }
+  doctorService.addToSchedule
+);
+
+//delete date or timeslot
+
+router.delete(
+  "/:doctorId/delete-schedule",
+  authentication(),
+  authorization(["Doctor"]),
+  doctorService.deleteFromSchedule
 );
 
 /**
@@ -90,19 +93,8 @@ router.get("/:doctorId/available-slots/:date", async (req, res) => {
  * @route   GET /api/doctor/:doctorId/reservations
  * @desc    Get reservations for a specific doctor
  */
-router.get("/:doctorId/reservations", async (req, res) => {
-  try {
-    const reservations = await doctorService.getDoctorReservations(req.params.doctorId);
-
-    // Even if it's empty, return a 200 with an empty array
-    res.status(200).json({
-      message: "Reservations fetched successfully",
-      reservations
-    });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
+router.get("/:doctorId/reservations", authentication(),
+authorization(["Doctor"]),doctorService.getDoctorReservations);
 
 // Get all doctors
 router.get("/", async (req, res) => {

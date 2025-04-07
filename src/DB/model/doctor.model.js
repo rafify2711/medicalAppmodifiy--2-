@@ -68,6 +68,11 @@ gender: {
   default: 'male'
 },
 
+role: {
+  type: String,
+  enum: ['User','Admin','Doctor'],
+  default: "Doctor"
+},
 changePasswordTime:{ 
   type: Date,
   default: null
