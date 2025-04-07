@@ -14,7 +14,7 @@ import bonefractureModule from './modules/bone-fracture/bonefracture.controller.
 import drugInteractions from "./modules/drug-interactions/drugInteractions.controller.js";
 import alzheimerModule from './modules/alzheimer/alzheimer.controller.js';
 import eye_diseasesModule from './modules/eye_diseases/eye_diseases.controller.js';
-// import chatModule from './modules/chat/chat.routes.js';
+import chatModule from './modules/chat/chat.module.js';
 // import messageController from './modules/message/message.controller.js'
 // import chatbotController from './chatbot/chatbot.controller.js'
 
@@ -55,7 +55,7 @@ app.use(express.json())
     app.use("/api/drug-interactions", drugInteractions);
     app.use("/api/alzheimer", alzheimerModule);
     app.use("/api/eye-diseases", eye_diseasesModule);
-    // app.use("/api/chat", chatModule);
+    app.use("/api/chat", chatModule);
 
     
     app.all("*", (req, res, next) => {
