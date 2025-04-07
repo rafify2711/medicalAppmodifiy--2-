@@ -217,9 +217,7 @@ export const getDoctorReservations = async (req , res ) => {
     .populate("doctor", "username specialty")
     .populate("user", "username email");
 
-  if (!reservations.length) {
-    return res.status(404).json({ message: "No reservations found for this doctor" });
-  }
+  
 
 // Modify response to include doctor details directly
 const formattedReservations = reservations.map(reservation => ({
