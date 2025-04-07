@@ -4,16 +4,6 @@ import { Router } from 'express';
 const router = Router();
 import chatController from './chat.controller.js';  
 
-
-
-
-
-
-
-
-
-
-
 const addMessage = async (user,email, message) => {
     const newMessage = new ChatMessage({
       user,
@@ -29,7 +19,7 @@ const addMessage = async (user,email, message) => {
       throw new Error('Error saving message');
     }
   };
-// دالة لاسترجاع سجل المحادثات
+
 const getChatHistory = async ( email) => {
   try {
     const messages = await ChatMessage.find( {email}).sort({ timestamp: 1 }); 
@@ -52,10 +42,10 @@ const deleteChatByEmail = async (email) => {
 
   export { addMessage, getChatHistory, deleteChatByEmail};
 
-// نقطة النهاية لإرسال رسالة جديدة
+
 router.post('/send-message', chatController.sendMessage);
 
-// نقطة النهاية لاسترجاع سجل المحادثات
+
 router.get('/chat-history', chatController.getChatHistory);
 
 router.delete('/delete-chat', chatController.deleteChatHistory);
