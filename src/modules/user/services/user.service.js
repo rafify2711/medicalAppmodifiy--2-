@@ -192,6 +192,7 @@ export const getAllUserReservations = async (req, res) => {
         const formattedReservations = reservations.map(reservation => ({
             id: reservation._id,
             date: reservation.date,
+            timeSlot:reservation.timeSlot,
             status: reservation.status,
             doctor: {
                 id: reservation.doctor._id,

@@ -72,24 +72,52 @@ export const updateSchedule = async (doctorId, { schedule }) => {
   doctor.schedule = schedule;
   await doctor.save();
 
-  return doctor;
+  return doctor.schedule;
 };
 
 //get doctor's reservations 
 
 
-export const getDoctorReservations = async (doctorId) => {
+export const getDoctorReservations = async (req , res ) => {
+ try{ 
+  const  { doctorId } = req.params;
+
   if (!mongoose.Types.ObjectId.isValid(doctorId)) {
     throw new Error("Invalid doctor ID format");
   }
 
   const reservations = await Reservation.find({ doctor: doctorId })
-    .populate("doctor", "name specialization")
+    .populate("doctor", "username specialty")
     .populate("user", "username email");
 
   if (!reservations.length) {
     throw new Error("No reservations found for this doctor");
   }
 
-  return reservations;
+// Modify response to include doctor details directly
+const formattedReservations = reservations.map(reservation => ({
+  id: reservation._id,
+  date: reservation.date,
+  timeSlot:reservation.timeSlot,
+  status: reservation.status,
+  doctor: {
+      id: reservation.doctor._id,
+      name: reservation.doctor.username,
+      specialization: reservation.doctor.specialty
+  },
+  user: {
+      id: reservation.user._id,
+      username: reservation.user.username,
+      email: reservation.user.email
+  }
+}));
+
+return res.status(200).json({ 
+  message: "Reservations fetched successfully", 
+  reservations: formattedReservations
+});
+
+} catch (error) {
+return res.status(500).json({ message: "Server error", error: error.message });
+}
 };
