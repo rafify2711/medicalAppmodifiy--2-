@@ -55,21 +55,24 @@ router.delete("/:id", async (req, res) => {
 });
 
 /**
- * @route   PUT /api/doctor/:doctorId/schedule
+ * @route   PUT /api/doctor/:doctorId/schedule/add
  * @desc    Update doctor's schedule
  */
+// Route to add new schedule entries
 router.put(
-  "/:doctorId/schedule",
+  "/:doctorId/schedule/add",
   authentication(),
   authorization(["Doctor"]),
-  async (req, res) => {
-    try {
-      const updatedSchedule = await doctorService.updateSchedule(req.params.doctorId, req.body);
-      res.json({ message: "Schedule updated successfully", updatedSchedule });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  }
+  doctorService.addToSchedule
+);
+
+//delete date or timeslot
+
+router.delete(
+  "/:doctorId/delete-schedule",
+  authentication(),
+  authorization(["Doctor"]),
+  doctorService.deleteFromSchedule
 );
 
 /**
