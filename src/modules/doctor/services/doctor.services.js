@@ -204,9 +204,6 @@ export const deleteFromSchedule = async (req, res) => {
 
 
 
- 
-
-
 //get doctor's reservations 
 export const getDoctorReservations = async (req , res ) => {
  try{ 
@@ -221,7 +218,7 @@ export const getDoctorReservations = async (req , res ) => {
     .populate("user", "username email");
 
   if (!reservations.length) {
-    throw new Error("No reservations found for this doctor");
+    return res.status(404).json({ message: "No reservations found for this doctor" });
   }
 
 // Modify response to include doctor details directly
