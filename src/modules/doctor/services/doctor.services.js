@@ -246,3 +246,30 @@ return res.status(200).json({
 return res.status(500).json({ message: "Server error", error: error.message });
 }
 };
+
+
+
+
+export const getDoctorSchedule = async (req, res) => {
+  try {
+    const { doctorId } = req.params;
+
+    // Validate doctor ID
+    if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+      return res.status(400).json({ message: "Invalid doctor ID" });
+    }
+
+    const doctor = await Doctor.findById(doctorId).select("schedule");
+    if (!doctor) {
+      return res.status(404).json({ message: "Doctor not found" });
+    }
+
+    return res.status(200).json({ schedule: doctor.schedule });
+
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};

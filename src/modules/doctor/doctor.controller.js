@@ -105,4 +105,7 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+router.get("/:doctorId/schedule", authentication(), authorization(["Doctor"]), doctorService.getDoctorSchedule);
+
 export default router;

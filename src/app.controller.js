@@ -5,16 +5,16 @@ import userController from './modules/user/user.controller.js'
 import reservationController from './modules/reservation/reservation.controller.js'
 import doctorController from './modules/doctor/doctor.controller.js'
 import cors from "cors"
-import covid19Module from "./modules/covid19/covid19.controller.js";
-import braintumorModule from './modules/brain-tumor/brain-tumor.controller.js';
-import kidneystoneModule from './modules/kidney-stone/kidney-stone.controller.js';
-import skincancerModule from './modules/skin-cancer/skin-cancer.controller.js';
-import tuberculosisModule from './modules/tuberculosis/tuberculosis.controller.js';
-import bonefractureModule from './modules/bone-fracture/bonefracture.controller.js';
-import drugInteractions from "./modules/drug-interactions/drugInteractions.controller.js";
-import alzheimerModule from './modules/alzheimer/alzheimer.controller.js';
-import eye_diseasesModule from './modules/eye_diseases/eye_diseases.controller.js';
-import chatModule from './modules/chat/chat.module.js';
+import covid19Module from "./ai/illnessDetectionModel/covid19/covid19.controller.js";
+import braintumorModule from './ai/illnessDetectionModel/brain-tumor/brain-tumor.controller.js';
+import kidneystoneModule from './ai/illnessDetectionModel/kidney-stone/kidney-stone.controller.js';
+import skincancerModule from './ai/illnessDetectionModel/skin-cancer/skin-cancer.controller.js';
+import tuberculosisModule from './ai/illnessDetectionModel/tuberculosis/tuberculosis.controller.js';
+import bonefractureModule from './ai/illnessDetectionModel/bone-fracture/bonefracture.controller.js';
+import drugInteractions from "./ai/drugInteractionModel/drug-interactions/drugInteractions.controller.js";
+import alzheimerModule from './ai/illnessDetectionModel/alzheimer/alzheimer.controller.js';
+import eye_diseasesModule from './ai/illnessDetectionModel/eye_diseases/eye_diseases.controller.js';
+import chatModule from './utils/chat/chat.module.js';
 // import messageController from './modules/message/message.controller.js'
 // import chatbotController from './chatbot/chatbot.controller.js'
 
