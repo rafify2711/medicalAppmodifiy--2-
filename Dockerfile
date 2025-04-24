@@ -1,14 +1,17 @@
 FROM node:18
 
+# Set the working directory
 WORKDIR /app
 
+# Copy package.json files and install dependencies
 COPY package*.json ./
 RUN npm install
 
-COPY . .
+# Copy all app files (including index.js)
+COPY . ./
 
+# Expose the port
 EXPOSE 3000
 
-ENV NODE_ENV=development
-
-CMD ["npm", "start"]
+# Start the app in dev mode
+CMD ["npm", "run", "dev"]
