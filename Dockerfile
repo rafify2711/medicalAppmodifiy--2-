@@ -1,18 +1,18 @@
-# Use the official Python image as the base image
+
 FROM node:18
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the application files into the working directory
+# Copy package.json files and install dependencies
 COPY package*.json ./
+RUN npm install
 
-# Install the application dependencies
-RUN npm install 
+# Copy all app files (including index.js)
+COPY . .
 
-RUN npm run dev
-
+# Expose the port
 EXPOSE 3000
 
-# Define the entry point for the container
-CMD ["node","index"]
+# Start the app in dev mode (or use start if you prefer)
+CMD ["npm", "run", "dev"]
