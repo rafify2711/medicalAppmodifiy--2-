@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:23
 
 # Set the working directory
 WORKDIR /app
@@ -7,6 +7,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
+# Rebuild bcrypt to ensure it works with the environment
+RUN npm rebuild bcrypt --build-from-source
+
 # Copy all app files (including index.js)
 COPY . ./
 
@@ -14,4 +17,4 @@ COPY . ./
 EXPOSE 3000
 
 # Start the app in dev mode
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
