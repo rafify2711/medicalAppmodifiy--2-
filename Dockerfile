@@ -10,6 +10,8 @@ RUN npm install
 # Rebuild bcrypt to ensure it works with the environment
 RUN npm rebuild bcrypt --build-from-source
 
+RUN npm install multer
+
 # Copy all app files (including index.js)
 COPY . ./
 
