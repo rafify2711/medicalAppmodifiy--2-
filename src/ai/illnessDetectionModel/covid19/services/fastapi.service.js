@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const FASTAPI_BASE_URL = 'http://127.0.0.1:8000';
+const FASTAPI_BASE_URL = 'https://medical-ai-production.up.railway.app/';
 
 export async function predictCovid19(imagePath) {
     try {

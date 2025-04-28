@@ -23,7 +23,7 @@ router.post("/predict", upload.single("file"), async (req, res) => {
         formData.append("file", fs.createReadStream(filePath), req.file.originalname);
 
         // ✅ Make the FastAPI request for bone-fracture Prediction
-        const response = await axios.post("http://127.0.0.1:8000/predict/bone-fracture/", formData, {
+        const response = await axios.post("https://medical-ai-production.up.railway.app/predict/bone-fracture/", formData, {
             headers: {
                 ...formData.getHeaders(), // ✅ Set correct headers for multipart
             },
