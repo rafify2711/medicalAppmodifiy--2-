@@ -23,7 +23,7 @@ router.post("/predict", upload.single("file"), async (req, res) => {
         formData.append("file", fs.createReadStream(filePath), req.file.originalname);
 
         // ✅ Make the FastAPI request for Kidney Stone Prediction
-        const response = await axios.post("http://127.0.0.1:8000/predict/alzheimer/", formData, {
+        const response = await axios.post("https://medical-ai-production.up.railway.app/predict/alzheimer/", formData, {
             headers: {
                 ...formData.getHeaders(), // ✅ Set correct headers for multipart
             },

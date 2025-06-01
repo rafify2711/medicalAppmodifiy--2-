@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import userModel from "../../../DB/model/User.model.js";
 import Reservation from "../../../DB/model/reservation.model.js";
 import CryptoJS from "crypto-js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 
 import { roleTypes } from "../../../middleware/auth.middleware.js";
