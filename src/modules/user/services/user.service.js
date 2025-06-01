@@ -115,6 +115,28 @@ export const updateProfile = async (req, res, next) => {
     }
 };
 
+//update profile image 
+export const updateProfileImage = async (req, res) => {
+    const userId = req.user._id;
+        if (!req.file) {
+      return res.status(400).json({ message: 'No image file uploaded' });
+    }
+  
+    try {
+      const updatedUser = await userModel.findByIdAndUpdate(
+        userId,
+        { profileImage: req.file.filename },
+        { new: true }
+      );
+  
+      if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+  
+      res.json({ message: 'Profile image updated', user: updatedUser });
+    } catch (err) {
+      res.status(500).json({ message: 'Error updating image', error: err.message });
+    }
+  };
+
 
 
 export const updatePassword = async (req, res, next) => {

@@ -5,11 +5,14 @@ import { authentication, authorization, roleTypes } from "../../middleware/auth.
 import { endpoint } from "./user.endpoint.js";
 import {validation} from "../../middleware/validation.middleware.js"
 import * as  validators from "./user.validation.js"
+import { uploadFileDisk } from "../../utils/multer/local.multer.js";
 
 
 const router = Router()
 
 router.get ('/profile/:userId',authentication(),authorization(endpoint.profile),userService.profile)
+
+router.patch('/profile/image', authentication(),uploadFileDisk().single('profileImage'),userService.updateProfileImage)
 
 router.get ('/profile',validation(validators.shareProfile),authentication(),userService.shareProfile)
 

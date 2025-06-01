@@ -52,7 +52,7 @@ const userSchema = new Schema({
 
       isDeleted:{type:Boolean, default:false},
 
-      profilePhoto: {
+      profileImage: {
         type: String, // URL for the profile photo
         default: "",
       },
