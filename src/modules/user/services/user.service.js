@@ -124,14 +124,14 @@ export const updateProfileImage = async (req, res) => {
     }
 
     try {
-        // Create the full URL for the image on Railway server
+        // Create the full URL for Back4App
         const serverUrl = 'https://medicalapp-sku9qeo9.b4a.run';
-        const imageUrl = `${serverUrl}/uploads/${req.file.filename}`;
+        const imageUrl = `${serverUrl}/files/${req.file.filename}`;
         
         // Update user with the full image URL
         const updatedUser = await userModel.findByIdAndUpdate(
             userId,
-            { profileImage: imageUrl }, // Store the full URL instead of just filename
+            { profileImage: imageUrl },
             { new: true }
         ).select('-password');
 
