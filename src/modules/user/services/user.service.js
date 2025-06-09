@@ -118,24 +118,38 @@ export const updateProfile = async (req, res, next) => {
 //update profile image 
 export const updateProfileImage = async (req, res) => {
     const userId = req.user._id;
-        if (!req.file) {
-      return res.status(400).json({ message: 'No image file uploaded' });
+    
+    if (!req.file) {
+        return res.status(400).json({ message: 'No image file uploaded' });
     }
-  
+
     try {
-      const updatedUser = await userModel.findByIdAndUpdate(
-        userId,
-        { profileImage: req.file.filename },
-        { new: true }
-      );
-  
-      if (!updatedUser) return res.status(404).json({ message: 'User not found' });
-  
-      res.json({ message: 'Profile image updated', user: updatedUser });
+        // Use the specific server URL
+        const serverUrl = 'https://medicalapp-sku9qeo9.b4a.run';
+        const imageUrl = `${serverUrl}/uploads/profileImages/${req.file.filename}`;
+        
+        const updatedUser = await userModel.findByIdAndUpdate(
+            userId,
+            { profileImage: imageUrl },
+            { new: true }
+        ).select('-password'); // Exclude password from response
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json({ 
+            message: 'Profile image updated successfully', 
+            user: updatedUser,
+            imageUrl: imageUrl 
+        });
     } catch (err) {
-      res.status(500).json({ message: 'Error updating image', error: err.message });
+        res.status(500).json({ 
+            message: 'Error updating profile image', 
+            error: err.message 
+        });
     }
-  };
+};
 
 
 
