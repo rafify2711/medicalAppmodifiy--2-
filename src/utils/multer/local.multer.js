@@ -4,7 +4,7 @@ import path from "path"
 export const uploadFileDisk = () => {
     const storage = multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, 'files') // Back4App uses 'files' directory
+            cb(null, 'public/files') // Back4App Parse Server uses public/files
         },
         filename: (req, file, cb) => {
             // Keep original filename but add timestamp to make it unique

@@ -124,9 +124,9 @@ export const updateProfileImage = async (req, res) => {
     }
 
     try {
-        // Create the full URL for Back4App
+        // Create the full URL for Back4App Parse Server
         const serverUrl = 'https://medicalapp-sku9qeo9.b4a.run';
-        const imageUrl = `${serverUrl}/files/${req.file.filename}`;
+        const imageUrl = `${serverUrl}/parse/files/${req.file.filename}`;
         
         // Update user with the full image URL
         const updatedUser = await userModel.findByIdAndUpdate(
