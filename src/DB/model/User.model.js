@@ -68,11 +68,14 @@ const userSchema = new Schema({
         default: null
     
       },
-      medicationHistory: {
+      medicationHistory: [{
         type: String,
-        default: null
-    
-      },
+        trim: true
+      }],
+      medicalHistory: [{
+        type: String,
+        trim: true
+      }],
 
       resetToken: String,
       resetTokenExpiry: Date,
