@@ -1,10 +1,16 @@
 import multer from "multer"
 import path from "path"
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export const uploadFileDisk = () => {
     const storage = multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, 'public/files') // Back4App Parse Server uses public/files
+            // Use absolute path for Back4App
+            const uploadPath = path.join(__dirname, '../../../public/files')
+            cb(null, uploadPath)
         },
         filename: (req, file, cb) => {
             // Keep original filename but add timestamp to make it unique

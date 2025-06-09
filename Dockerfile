@@ -12,8 +12,24 @@ RUN npm rebuild bcrypt --build-from-source
 
 RUN npm install multer
 
+# Create persistent directories for Back4App
+RUN mkdir -p /app/public/files && \
+    mkdir -p /app/uploads && \
+    chown -R node:node /app/public/files && \
+    chown -R node:node /app/uploads && \
+    chmod -R 755 /app/public/files && \
+    chmod -R 755 /app/uploads
+
 # Copy all app files (including index.js)
 COPY . ./
+
+# Ensure directories exist and have correct permissions after copy
+RUN mkdir -p /app/public/files && \
+    mkdir -p /app/uploads && \
+    chown -R node:node /app/public/files && \
+    chown -R node:node /app/uploads && \
+    chmod -R 755 /app/public/files && \
+    chmod -R 755 /app/uploads
 
 # Expose the port
 EXPOSE 3000
