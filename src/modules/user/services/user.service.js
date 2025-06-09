@@ -124,15 +124,16 @@ export const updateProfileImage = async (req, res) => {
     }
 
     try {
-        // Use the specific server URL
+        // Create the full URL for the image on Railway server
         const serverUrl = 'https://medicalapp-sku9qeo9.b4a.run';
-        const imageUrl = `${serverUrl}/uploads/profileImages/${req.file.filename}`;
+        const imageUrl = `${serverUrl}/uploads/${req.file.filename}`;
         
+        // Update user with the full image URL
         const updatedUser = await userModel.findByIdAndUpdate(
             userId,
-            { profileImage: imageUrl },
+            { profileImage: imageUrl }, // Store the full URL instead of just filename
             { new: true }
-        ).select('-password'); // Exclude password from response
+        ).select('-password');
 
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });

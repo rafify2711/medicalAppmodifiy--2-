@@ -4,12 +4,13 @@ import path from "path"
 export const uploadFileDisk = () => {
     const storage = multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, 'uploads/profileImages')
+            cb(null, 'uploads')
         },
         filename: (req, file, cb) => {
             const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
             const ext = path.extname(file.originalname)
-            cb(null, 'profile-' + uniqueSuffix + ext)
+            const originalName = path.basename(file.originalname, ext)
+            cb(null, originalName + '-' + uniqueSuffix + ext)
         }
     })
 
