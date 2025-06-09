@@ -55,3 +55,22 @@ export const login= {
         password:generalFields.password.required()
     })
 }
+
+export const forgotPassword = {
+    body: joi.object().keys({
+      email: generalFields.email.required()
+        .messages({
+          'string.email': 'Please enter a valid email address.',
+          'any.required': 'Email is required.',
+        }),
+    }),
+  };
+
+export const resetPassword = {
+    body:joi.object().keys({
+    newPassword: generalFields.password.required().messages({
+        'string.pattern.base': 'Password must be 8-12 characters, include uppercase, lowercase, number, and special character.',
+        'any.required': 'Password is required'
+      })
+  })
+}

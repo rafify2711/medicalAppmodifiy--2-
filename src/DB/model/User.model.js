@@ -13,10 +13,12 @@ const userSchema = new Schema({
         maxlength: 50
     },
     email: {
-        type: String,
-        unique: true,
-        required: true
-    },
+      type: String,
+      unique: true,
+      required: true,
+      lowercase: true 
+    }
+    ,
     password: {
         type: String,
         required: true
@@ -71,6 +73,9 @@ const userSchema = new Schema({
         default: null
     
       },
+
+      resetToken: String,
+      resetTokenExpiry: Date,
  
 }, { timestamps: true })
 
