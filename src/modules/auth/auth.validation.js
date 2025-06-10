@@ -67,7 +67,11 @@ export const forgotPassword = {
   };
 
 export const resetPassword = {
-    body:joi.object().keys({
+    body:joi.object().keys({ 
+      email: generalFields.email.required(),
+     otp: joi.string().length(6).required().messages({
+      'string.length': 'OTP must be 6 digits',
+      'any.required': 'OTP is required'}),
     newPassword: generalFields.password.required().messages({
         'string.pattern.base': 'Password must be 8-12 characters, include uppercase, lowercase, number, and special character.',
         'any.required': 'Password is required'

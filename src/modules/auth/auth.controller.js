@@ -12,7 +12,7 @@ const router = Router();
 router.post("/signup",validation(validators.signup), registrationService.signup)
 router.post("/login",validation(validators.login), registrationService.login)
 router.post('/forgot-password',validation(validators.forgotPassword) ,registrationService.forgotPassword);
-router.post('/reset-password/:token',validation(validators.resetPassword) ,registrationService.resetPassword);
+router.patch('/reset-password',validation(validators.resetPassword) ,registrationService.resetPassword);
 router.post("/logout", logout);
 
 export default router 

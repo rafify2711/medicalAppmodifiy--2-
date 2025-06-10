@@ -1,6 +1,6 @@
 import path from 'path'
 import * as dotenv from 'dotenv'
-dotenv.config({ path: './src/config/.env.dev' }) // استخدام مباشر أبسط
+dotenv.config({ path: './src/config/.env.dev' }) 
 
 import bootstrap from "./src/app.controller.js"
 import express from 'express'
